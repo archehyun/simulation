@@ -2,11 +2,11 @@ package sim.view.framework;
 
 import javax.swing.JComponent;
 
-import map.cavas.DrawObject;
+import sim.map.cavas.DrawObject;
 import sim.model.impl.stoage.block.BlockManager;
 
 /**
- * 占싱뱄옙占쏙옙 표占쏙옙 클占쏙옙占쏙옙
+ * 
  *
  * @author LDCC
  *
@@ -22,13 +22,13 @@ public abstract class SimViewObject extends JComponent implements DrawObject, IF
 	// x y initition location
 	public float initX, initY;
 
-	// 占쏙옙체 占쏙옙占�
+	// 
 	public final Rectangle bounds;
 
-	// 표占쏙옙 占쏙옙占쏙옙
+	// 
 
 	/**
-	 * 표占시븝옙占쏙옙
+	 * 
 	 *
 	 * @DEFAULT 100
 	 */

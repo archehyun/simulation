@@ -1,6 +1,6 @@
 package sim.view.framework;
 
-import sim.view.SimMainImpl;
+import sim.view.comp.SimMainImpl;
 
 public abstract class Screen {
 

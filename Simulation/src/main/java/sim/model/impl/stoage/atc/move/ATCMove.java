@@ -32,7 +32,6 @@ public abstract class ATCMove extends SimModel {
 
 	@Override
 	public void notifySimMessage(SimModel model) {
-		// TODO Auto-generated method stub
 
 	}
 

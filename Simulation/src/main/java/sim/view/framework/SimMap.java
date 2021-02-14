@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
-import map.cavas.DefaultCanvas;
-import map.cavas.DrawObject;
+import sim.map.cavas.DefaultCanvas;
+import sim.map.cavas.DrawObject;
 
 /**
  * @deprecated

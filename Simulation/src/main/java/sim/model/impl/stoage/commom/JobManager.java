@@ -258,8 +258,8 @@ public class JobManager extends SimModelManager{
 
 		/**
 		 *
-		 * tp ´Â ¼­ºñ½º Ã¢±¸
-		 * tp ¼ö´Â 3°³
+		 * tp ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½
+		 * tp ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½
 		 *
 		 * @param tpCount
 		 */
@@ -319,7 +319,7 @@ public class JobManager extends SimModelManager{
 
 	/**
 	 *
-	 * ´ë±â Çà·Ä¸ðÇü ±¸Çö
+	 * ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 * @author LDCC
 	 *
 	 */
@@ -365,7 +365,6 @@ public class JobManager extends SimModelManager{
 				node.setEventType(SimEvent.TYPE_ORDER);
 
 				node.setSeaLandType(seaLandType);
-
 
 				node.setStartTime(JobManager.this.getTime());
 				node.put("startTime", JobManager.this.getTime());
@@ -462,10 +461,6 @@ public class JobManager extends SimModelManager{
 				e.printStackTrace();
 			}
 		}
-
-
-
-
 
 
 		private Random rn = new Random();

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+<node class="SimBlockATCS" x="10" y="60" w="20" h="80"></node>
+
+<node class="SimBlockATCS" x="10" y="180" w="20" h="80"></node>
+
+<node class="SimBackground" x="10" y="50" w="1000" h="100"></node>
+
+<node class="SimBackground" x="10" y="170" w="1000" h="100"></node>
+    
+    
+</root>

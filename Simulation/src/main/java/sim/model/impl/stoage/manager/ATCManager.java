@@ -7,7 +7,7 @@ import java.util.Map;
 import sim.model.core.SimEvent;
 import sim.model.impl.stoage.manager.impl.CrossOverJobManager;
 import sim.model.impl.stoage.manager.impl.TwinJobManager;
-import sim.view.EquipPanel;
+import sim.view.comp.EquipPanel;
 
 public class ATCManager {
 

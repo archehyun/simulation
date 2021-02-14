@@ -345,13 +345,13 @@ public class Block implements IFSimModel {
 	public synchronized void insertContainer()
 	{
 		containerCount++;
-		System.out.println("insert:" + containerCount);
+		
 	}
 
 	public synchronized void deleteContainer()
 	{
 		containerCount--;
-		System.out.println("delete:" + containerCount);
+		
 	}
 
 	/**

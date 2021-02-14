@@ -14,6 +14,11 @@ import sim.view.framework.SimViewObject;
 public class SimViewBlock extends SimViewObject{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private int blockContainerCount;
 
 	private int xx, yy;

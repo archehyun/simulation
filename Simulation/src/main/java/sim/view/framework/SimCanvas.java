@@ -1,39 +1,50 @@
 package sim.view.framework;
 
+
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.font.TextLayout;
 import java.awt.image.BufferStrategy;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
 
-import map.cavas.DrawObject;
+import org.apache.log4j.Logger;
+
+import sim.map.cavas.DrawObject;
+import sim.model.SimulationMain;
 import sim.model.core.SimTimestamp;
 import sim.model.impl.stoage.atc.SimATC;
 import sim.model.impl.stoage.block.Block;
 import sim.model.impl.stoage.block.BlockManager;
-import sim.view.SimMainImpl;
+import sim.view.comp.SimMainImpl;
 import sim.view.obj.SimViewATC;
 import sim.view.obj.SimViewBlock;
+import sim.view.obj.SimViewUpdate;
 
 /**
+ * 
+ * @date 2021-02-13
+ * 
+ * canvas --> Main -> node
+ * 
+ * @version 1.0
  * @author LDCC
  *
  */
 public class SimCanvas extends Canvas implements Runnable {
+	
+	FrameInfo frameInfos;
 
 	public static final int magin = 25;
+	
+	protected Logger logger = Logger.getLogger(this.getClass().getName());
 
-	protected ArrayList<DrawObject> draw = new ArrayList<DrawObject>();
+	private DrawArray draw = DrawArray.getInstance();
 
-	long time;
+	private long time;
 
 	public long getTime() {
 		return time;
@@ -45,7 +56,7 @@ public class SimCanvas extends Canvas implements Runnable {
 
 	public void addDrawObject(DrawObject object) {
 
-		draw.add(object);
+		logger.debug("insert:"+draw.add(object)+","+object);
 
 	}
 
@@ -72,20 +83,23 @@ public class SimCanvas extends Canvas implements Runnable {
 	public int lastFrames;
 
 	public int ticks;
+	
+	private Color backgroundColor = Color.lightGray;
 
 	public static JFrame frame;
 
-	public SimCanvas(SimMainImpl main) {
-		this.main = main;
-
+	public SimCanvas(SimMainImpl simMain) {
+		this.main = simMain;
+		
+		frameInfos = new FrameInfo();
 	}
-
-	Font font = new Font("Serif", Font.PLAIN, 32);
-
-	TextLayout textLayout;
+	public String getStmpTime()
+	{
+		return SimTimestamp.toTimestmp(time);
+	}
+	
 	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 
-	private boolean isTimeView = true;
 	public synchronized void render() {
 
 		frames++;
@@ -99,45 +113,25 @@ public class SimCanvas extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 
-		//g.setColor(new Color(79, 194, 232));
-
-		g.setColor(Color.lightGray);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		//Call your render funtions from here
+		drawBackground(g);
 
 		try {
-
-			//			System.out.println("size:" + draw.size());
-			//Collections.reverse(draw);
+			
 			List<DrawObject> unmodifiableList = Collections.unmodifiableList(draw);
 
-			//;
 
 			for (DrawObject str : unmodifiableList) {
-
-				//				System.out.println(str);
+				
+				
+				if( str instanceof SimViewUpdate)
+				{
+					((SimViewUpdate)str).update(this);
+				}
+				
 				str.draw(g);
+
 			}
-			//System.out.println();
-
-			if (isFrameView) {
-			g.setColor(Color.black);
-
-			g.drawString(frameInfo, getWidth() - 125, 0 + 15);
-			}
-
-			//Timestamp stamp = new Timestamp(time * 1000);
-
-			//g.drawString(sdf.format(new Date(stamp.getTime())), getWidth() - 100, getHeight() - 15);
-
-			if (isTimeView) {
-			Graphics2D g2 = (Graphics2D) g;
-
-			textLayout = new TextLayout(SimTimestamp.toTimestmp(time), font, g2.getFontRenderContext());
-			textLayout.draw(g2, getWidth() - 100, getHeight() - 15);
-			}
-
-			//			g.drawString(SimTimestamp.toTimestmp(time), getWidth() - 100, getHeight() - 15);
+			
 
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -145,6 +139,12 @@ public class SimCanvas extends Canvas implements Runnable {
 
 		g.dispose();
 		bs.show();
+	}
+
+	private void drawBackground(Graphics g) {
+		g.setColor(backgroundColor);
+		
+		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 
 	/**
@@ -177,12 +177,17 @@ public class SimCanvas extends Canvas implements Runnable {
 
 	}
 
-	String frameInfo;
+	private String frameInfo;
+
+	public String getFrameInfo() {
+		return frameInfo;
+	}
 
 	public void tick() {
 	}
 
 	double delta = 0;
+	
 	@Override
 	public void run() {
 		init();
@@ -224,6 +229,7 @@ public class SimCanvas extends Canvas implements Runnable {
 	}
 
 	public void addObject(Object obj) {
+		
 		if (obj instanceof SimATC) {
 
 			SimATC atc = (SimATC) obj;
@@ -237,11 +243,15 @@ public class SimCanvas extends Canvas implements Runnable {
 	}
 
 	public void clear() {
+		
+		logger.debug("clear");
 		draw.clear();
 
 	}
 
 	boolean isCountView = true;
+	
+	
 	public void setCountView(boolean selected) {
 		//Collections.reverse(draw);
 		List<DrawObject> unmodifiableList = Collections.unmodifiableList(draw);
@@ -266,7 +276,6 @@ public class SimCanvas extends Canvas implements Runnable {
 
 	public void setTimeView(boolean view)
 	{
-		this.isTimeView = view;
 	}
 
 }

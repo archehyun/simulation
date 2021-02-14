@@ -2,7 +2,7 @@ package sim.model.impl.stoage.commom;
 
 import java.util.Random;
 
-import sim.model.Create;
+import sim.model.core.Create;
 import sim.model.core.SimEvent;
 import sim.model.core.SimMain;
 import sim.model.core.SimulationInfo;

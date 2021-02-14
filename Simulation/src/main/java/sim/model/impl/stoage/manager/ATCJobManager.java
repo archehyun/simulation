@@ -8,7 +8,7 @@ import sim.model.core.SimMain;
 import sim.model.core.SimModel;
 import sim.model.core.SimModelManager;
 import sim.model.impl.stoage.atc.SimATC;
-import sim.view.SimMainImpl;
+import sim.view.comp.SimMainImpl;
 
 /**
  * @author archehyun
